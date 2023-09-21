@@ -1,0 +1,23 @@
+.musicCard {
+  height: 200px;
+  width: 200px;
+
+  border: 1px solid black;
+  border-radius: 8px;
+}
+
+.musicCard:hover {
+  cursor: pointer;
+  background-color: black;
+}
+
+.bannerImg {
+}
+
+.musicCardTitle {
+  color: white;
+}
+
+.artist {
+  color: gray;
+}
