@@ -1,6 +1,10 @@
 import { useEffect, useState } from "react";
 import { getHeaderWithProjectId } from "../../utils/configs";
 import Loader from "../../components/Loader/Loader";
+import MusicCard from "../../components/Music/MusciCard/MusicCard";
+import styles from "./Home.module.css";
+import axios from "axios";
+import MusicPlayer from "../../components/Music/MusicPlayer/MusicPlayer";
 
 function Home() {
   const [musicList, setMusicList] = useState([]);
@@ -15,17 +19,28 @@ function Home() {
   //   using the localstorage ...
 
   async function fetchMusic() {
-    setLoading(true);
-    const config = getHeaderWithProjectId();
-    const response = await fetch(
-      "https://academics.newtonschool.co/api/v1/music/song",
-      config
-    );
-    const data = await response.json();
-    setLoading(false);
-    const { data: listOfMusic } = data;
+    try {
+      setLoading(true);
+      const config = getHeaderWithProjectId();
+      const url = "https://academics.newtonschool.co/api/v1/music/song";
 
-    setMusicList(listOfMusic);
+      const axisResponse = await axios.get(url, config);
+      const data = axisResponse.data;
+
+      // const response = await fetch(
+      //   "",
+      //   config
+      // );
+      // const data = await response.json();
+      setLoading(false);
+      const { data: listOfMusic } = data;
+
+      setMusicList(listOfMusic);
+    } catch (error) {
+      console.log("axios errror ");
+
+      // i can show 404 not found beautiful screen
+    }
   }
 
   useEffect(() => {
@@ -37,7 +52,25 @@ function Home() {
       "HOME"
       {loading && <Loader />}
       {/* TOOD:  */}
-      {/* {!loading && musicList} */}
+      <section className={styles["music-list-container"]}>
+        {musicList.map((music, index) => {
+          const { thumbnail, title, _id } = music;
+          const artistArray = music.artist.map((artist) => artist.name);
+          console.log(artistArray, "artisearray ebug");
+          return (
+            <div key={_id}>
+              <MusicCard
+                title={title}
+                image={thumbnail}
+                artist={artistArray.join(" & ")}
+              />
+            </div>
+          );
+        })}
+      </section>
+      <footer>
+        <MusicPlayer title={"dummy title"} artist={"dummy artist"} />
+      </footer>
     </>
   );
 }

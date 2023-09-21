@@ -1,0 +1,13 @@
+.music-player {
+  display: flex;
+  gap: 1rem;
+
+  background: darkorange;
+  padding: 1rem;
+}
+
+.play-pause {
+  border-radius: 100%;
+  width: 40px;
+  height: 40px;
+}

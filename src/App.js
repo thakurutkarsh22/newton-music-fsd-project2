@@ -1,15 +1,16 @@
-import logo from "./logo.svg";
 import "./App.css";
 import { Route, Routes } from "react-router-dom";
 import NavBar from "./components/navbar/Navbar";
-import MusicCard from "./components/Music/MusicCard";
 import Home from "./pages/home/Home";
+import Login from "./pages/login/Login";
 
 function App() {
   return (
     <>
       {/* NAV GATION BAR */}
       <NavBar />
+
+      <Login></Login>
 
       {/* <MusicCard title={"hello"} artist={"cat"} /> */}
 
