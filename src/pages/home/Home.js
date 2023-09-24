@@ -52,14 +52,16 @@ function Home() {
       {/* TOOD:  */}
       <section className={styles["music-list-container"]}>
         {musicList.map((music, index) => {
-          const { thumbnail, title, _id } = music;
+          const { thumbnail, title, _id, audio_url } = music;
           const artistArray = music.artist.map((artist) => artist.name);
           return (
             <div key={_id}>
               <MusicCard
                 title={title}
+                audio_url={audio_url}
                 image={thumbnail}
                 artist={artistArray.join(" & ")}
+                id={_id}
               />
             </div>
           );

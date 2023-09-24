@@ -7,6 +7,7 @@ import Social from "./pages/social/Social";
 import Library from "./pages/library/Library";
 import ProtectedComponent from "./components/ProtectedComponent/ProtectedComponent";
 import React from "react";
+import { MusicProvider } from "./Providers/MusicProvider";
 
 function App() {
   const location = useLocation();
@@ -23,7 +24,14 @@ function App() {
 
       <div style={{ marginTop: "100px" }}>
         <Routes>
-          <Route path="/" element={<Home />}></Route>
+          <Route
+            path="/"
+            element={
+              <MusicProvider>
+                <Home />
+              </MusicProvider>
+            }
+          ></Route>
           <Route path="/social" element={<Social />}></Route>
           <Route path="/login" element={<Login />}></Route>
           <Route path="/signup" element={<h1>SignUp</h1>}></Route>
