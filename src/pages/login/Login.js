@@ -1,8 +1,11 @@
 import { useState } from "react";
+import { useUser } from "../../Providers/UserProvider";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
-  // const [userName, setUserName] = useState("")
-  // const [password, setPassword] = useState()
+  const { signInContext } = useUser();
+
+  const navigate = useNavigate();
 
   const [userInfo, setUserInfo] = useState({
     email: "",
@@ -34,33 +37,40 @@ function Login() {
   }
 
   async function signIn(userInfo) {
-    var myHeaders = new Headers();
-    myHeaders.append("projectId", "8nbih316dv01");
-    myHeaders.append("Content-Type", "application/json");
+    try {
+      var myHeaders = new Headers();
+      myHeaders.append("projectId", "8nbih316dv01");
+      myHeaders.append("Content-Type", "application/json");
 
-    const url = "https://academics.newtonschool.co/api/v1/user/login";
-    var payload = {
-      ...userInfo,
-    };
+      const url = "https://academics.newtonschool.co/api/v1/user/login";
+      var payload = {
+        ...userInfo,
+      };
 
-    var requestOptions = {
-      method: "POST",
-      headers: myHeaders,
-      body: JSON.stringify(payload),
-      redirect: "follow",
-    };
+      var requestOptions = {
+        method: "POST",
+        headers: myHeaders,
+        body: JSON.stringify(payload),
+        redirect: "follow",
+      };
 
-    const response = await fetch(url, requestOptions);
+      const response = await fetch(url, requestOptions);
 
-    if (response.ok) {
-      const data = await response.json();
+      if (response.ok) {
+        const data = await response.json();
 
-      const { token, data: loginData } = data;
-      const { name: userName } = loginData;
-      sessionStorage.setItem("authToken", token);
-      sessionStorage.setItem("userInfo", userName);
-    } else {
-      alert("Password or email is incorrect");
+        const { token, data: loginData } = data;
+        const { name: userName } = loginData;
+        sessionStorage.setItem("authToken", token);
+        sessionStorage.setItem("userInfo", userName);
+        signInContext(token, userName);
+        navigate("/");
+      } else {
+        alert("Password or email is incorrect");
+      }
+    } catch (error) {
+      // show beutiful component
+      console.log(error);
     }
   }
 

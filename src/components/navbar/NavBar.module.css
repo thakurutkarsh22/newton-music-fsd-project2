@@ -1,0 +1,29 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  z-index: 5;
+  position: fixed;
+  margin-bottom: 10px;
+  padding: 16px;
+  background: black;
+  border-bottom: 2px solid white;
+  top: 0;
+  color: white;
+  align-items: center;
+}
+
+.nav-links {
+  display: flex;
+  gap: 32px;
+  list-style: none;
+}
+
+.link-item {
+}
+
+.link-item:hover {
+  background-color: aqua;
+  cursor: pointer;
+  color: black;
+}

@@ -10,8 +10,6 @@ function Home() {
   const [musicList, setMusicList] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  console.log(musicList);
-
   // const projectcode = "8nbih316dv01"
 
   // UI blokcing task, this task is a side effect ?  YES : NO
@@ -56,7 +54,6 @@ function Home() {
         {musicList.map((music, index) => {
           const { thumbnail, title, _id } = music;
           const artistArray = music.artist.map((artist) => artist.name);
-          console.log(artistArray, "artisearray ebug");
           return (
             <div key={_id}>
               <MusicCard
