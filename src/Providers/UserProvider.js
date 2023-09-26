@@ -22,7 +22,10 @@ export function UserProvider(props) {
   }
 
   // this is for logout
-  function signOutContext() {}
+  function signOutContext() {
+    setUser(null);
+    setToken(null);
+  }
 
   const value = {
     isUserLoggedIn: !!user,

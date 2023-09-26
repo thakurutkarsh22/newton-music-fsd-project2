@@ -2,9 +2,15 @@ import { useState } from "react";
 import { FaHeart, FaPause, FaPlay, FaRegHeart } from "react-icons/fa";
 import styles from "./MusicPlayer.module.css";
 import { useMusic } from "../../../Providers/MusicProvider";
+import { useUser } from "../../../Providers/UserProvider";
+import { useNavigate } from "react-router-dom";
 
 function MusicPlayer(props) {
-  const isLoggedIn = true;
+  const { token, isUserLoggedIn } = useUser();
+  const isLoggedIn = isUserLoggedIn;
+
+  const navigate = useNavigate();
+
   const [isPlaying, setIsPlaying] = useState();
 
   const start = 0;
@@ -25,10 +31,7 @@ function MusicPlayer(props) {
   function addToFavourites() {
     var myHeaders = new Headers();
     myHeaders.append("projectId", "8nbih316dv01");
-    myHeaders.append(
-      "Authorization",
-      "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1MDljMDFjOThlOGExZGZlYWY4YTQ4YiIsImlhdCI6MTY5NTU3OTU0MCwiZXhwIjoxNzI3MTE1NTQwfQ.RtIe-_rK8VXwoBkUbR3sciN1AZYsrkOqjvzMen9FTMc"
-    );
+    myHeaders.append("Authorization", `Bearer ${token}`);
     myHeaders.append("Content-Type", "application/json");
 
     var raw = JSON.stringify({
@@ -92,7 +95,14 @@ function MusicPlayer(props) {
         <>
           <p>Please sign up first</p>
 
-          <button onClick={() => {}}> SignUp here !! </button>
+          <button
+            onClick={() => {
+              navigate("/login");
+            }}
+          >
+            {" "}
+            SignUp here !!{" "}
+          </button>
         </>
       )}
     </section>

@@ -27,3 +27,12 @@
   cursor: pointer;
   color: black;
 }
+
+.modal-sign-in {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  background: red;
+  top: 80px;
+  right: 40px;
+}
